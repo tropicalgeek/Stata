@@ -352,9 +352,9 @@ MULTIVARIATE ANALYSES.
 fvset base 0 educ_c3
 fvset base 2 sex
 
-reg happy age i.sex##i.educ_c3  marital race [pweight=weight],  cformat(%9.2f) coeflegend allbaselevels
+reg happy  i.sex##i.educ_c3 age marital race [pweight=weight],  cformat(%9.2f) coeflegend allbaselevels
 
-reg happy age i.sex##i.educ_c3  marital race [pweight=weight],  cformat(%9.4f) 
+reg happy i.sex##i.educ_c3 age  marital race [pweight=weight],  cformat(%9.4f) 
 testparm i.sex#i.educ_c3 
 lincom 1.sex + 1.sex#0.educ_c3 
 lincom 1.sex + 1.sex#1.educ_c3 
@@ -379,8 +379,7 @@ vif  /* – to test for multicollinearity*/
 tab happy happy_c2
 
 
-logistic happy_c2 age i.sex##i.educ_c3  marital race [pweight=weight],  cformat(%9.4f)
-
+logistic happy_c2 i.sex##i.educ_c3 age  marital race [pweight=weight],  cformat(%9.4f)
 lincom 1.sex + 1.sex#0.educ_c3 
 lincom 1.sex + 1.sex#1.educ_c3 
 lincom 1.sex + 1.sex#2.educ_c3 
@@ -411,7 +410,7 @@ capture  log close log2
 log using "C:\Users\vcarrion\Desktop\vc_IMHR\Dropbox\MAYRA\RAMON\BIO2\25JAN17\logistic_25JAN17.log", replace  text name(log2)
 logistic happy_c2 age i.sex##i.educ_c3  marital race [pweight=weight],  cformat(%9.4f) coeflegend allbaselevels vsquish
 
-logistic happy_c2 age i.sex##i.educ_c3  marital race [pweight=weight],  cformat(%9.4f)
+logistic happy_c2i.sex##i.educ_c3  age  marital race [pweight=weight],  cformat(%9.4f)
 lincom 1.sex + 1.sex#0.educ_c3 
 lincom 1.sex + 1.sex#1.educ_c3 
 lincom 1.sex + 1.sex#2.educ_c3 
@@ -420,17 +419,7 @@ lincom 2.sex + 2.sex#0.educ_c3
 lincom 2.sex + 2.sex#1.educ_c3 
 lincom 2.sex + 2.sex#2.educ_c3 
 
-glm happy_c2 age i.sex##i.educ_c3  marital race [pweight=weight], cformat(%9.2f) family(binomial) link(logit) eform
-lincom 1.sex + 1.sex#0.educ_c3 
-lincom 1.sex + 1.sex#1.educ_c3 
-lincom 1.sex + 1.sex#2.educ_c3 
-
-lincom 2.sex + 2.sex#0.educ_c3 
-lincom 2.sex + 2.sex#1.educ_c3 
-lincom 2.sex + 2.sex#2.educ_c3 
-
-
-glm happy_c2 age i.sex##i.educ_c3  marital race [pweight=weight], cformat(%9.2f) family(poisson) link(log) 
+glm happy_c2 i.sex##i.educ_c3  age marital race [pweight=weight], cformat(%9.2f) family(binomial) link(logit) eform
 lincom 1.sex + 1.sex#0.educ_c3 
 lincom 1.sex + 1.sex#1.educ_c3 
 lincom 1.sex + 1.sex#2.educ_c3 
@@ -440,7 +429,17 @@ lincom 2.sex + 2.sex#1.educ_c3
 lincom 2.sex + 2.sex#2.educ_c3 
 
 
-glm happy_c2 age i.sex##i.educ_c3  marital race [pweight=weight], cformat(%9.2f) family(poisson) link(log) eform
+glm happy_c2  i.sex##i.educ_c3 age marital race [pweight=weight], cformat(%9.2f) family(poisson) link(log) 
+lincom 1.sex + 1.sex#0.educ_c3 
+lincom 1.sex + 1.sex#1.educ_c3 
+lincom 1.sex + 1.sex#2.educ_c3 
+
+lincom 2.sex + 2.sex#0.educ_c3 
+lincom 2.sex + 2.sex#1.educ_c3 
+lincom 2.sex + 2.sex#2.educ_c3 
+
+
+glm happy_c2 i.sex##i.educ_c3  age  marital race [pweight=weight], cformat(%9.2f) family(poisson) link(log) eform
 lincom 1.sex + 1.sex#0.educ_c3 , eform
 lincom 1.sex + 1.sex#1.educ_c3 , eform
 lincom 1.sex + 1.sex#2.educ_c3 , eform
