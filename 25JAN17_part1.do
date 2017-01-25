@@ -46,7 +46,7 @@
 *********************
 * DATA SET auto.dta
 *********************
-tab;e
+sysuse auto, clear
 describe /* */
 
 set more off /* turning automatic MORE off */
